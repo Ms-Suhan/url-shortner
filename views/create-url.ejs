@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Home</title>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+    <div class="container mt-4">
+        <% if (locals.shortId) { %>
+         <p>Generated Short Url : <a href="localhost:3000/url/<%= shortId  %>"> <%= `localhost:3000/url/${shortId}` %></a></p>
+        <% } %>
+        <form action="/url/", method="post">
+            <div class="mb-3">
+                <label for="url" class="form-label">Url</label>
+                <input type="text" name="url" class="form-control" id="url" aria-describedby="urlHelp">
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+
+    </div>
+        <%- include('./partials/script') %>
+</body>
+
+</html>

@@ -8,6 +8,7 @@ const userRouter = require('./routes/user.route')
 const urlRouter = require('./routes/url.route')
 
 const {checkUserAuthentication, loggedInUserOnly} = require('./middlewares/auth.middleware')
+const Url = require('./models/url.model')
 
 
 const app = express()
@@ -27,13 +28,14 @@ app.set('views', path.resolve('./views') )
 
 app.use(express.static(path.resolve('./public')))
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     const user = req.user
-    res.render("home", {user})
+    const urls = await Url.find({createdBy: user?.id})
+    res.render("home", {user,urls})
 })
 
 app.use('/user', userRouter)
-app.use('/url', urlRouter)
+app.use('/url', loggedInUserOnly, urlRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running at port : ${PORT}`);

@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./partials/head') %>
-    <title>Home</title>
+        <title>Home</title>
 </head>
+
 <body>
-    <%-  include('./partials/nav') %>
-    <h1>Home</h1>
-    <%- include('./partials/script') %>
+    <%- include('./partials/nav') %>
+    <div class="container mt-4">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sl no</th>
+                    <th scope="col">Redirect</th>
+                    <th scope="col">Short Id</th>
+                    <th scope="col">Clicks</th>
+                </tr>
+            </thead>
+            <% if (locals.urls) { %>
+                <% urls.forEach((url, index)=> { %>
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                <%= index + 1 %>
+                            </th>
+                            <td>
+                                <%= url.originalUrl %>
+                            </td>
+                            <td>
+                                <%= url.shortId %>
+                            </td>
+                            <td>
+                                <%= url.visitHistory.length %>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <% }) %>
+                        <% } %>
+        </table>
+    </div>
+        <%- include('./partials/script') %>
 </body>
+
 </html>

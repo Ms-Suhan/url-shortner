@@ -26,7 +26,7 @@ userSchema.pre('save', async function(next) {
     if(!user.isModified('password')) return next
 
 
-    const saltRounds = '12'
+    const saltRounds = 12
 
     const hashedPassword = await bcrypt.hash(user.password, saltRounds)
 
